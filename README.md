@@ -146,3 +146,9 @@ PING my-service.default.svc.cluster.local (10.152.183.48) 56(84) bytes of data.
 64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=13 ttl=62 time=3.18 ms
 64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=14 ttl=62 time=2.30 ms
 ```
+## Задание 2. Создать Service и обеспечить доступ к приложениям снаружи кластера
+- Создать отдельный Service приложения из Задания 1 с возможностью доступа снаружи кластера к nginx, используя тип NodePort.
+- Продемонстрировать доступ с помощью браузера или curl с локального компьютера.
+- Предоставить манифест и Service в решении, а также скриншоты или вывод команды п.2.
+### Ответ:
+- Создала новый сервис [service1]()
