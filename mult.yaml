@@ -6,6 +6,9 @@ spec:
   containers:
   - name: multitool-container
     image: wbitt/network-multitool:latest
-    command: ["network-multitool", "--port", "8080", "/bin/sleep", "infinity"]
+    command:
+      - sh
+      - -c
+      - "echo The multitool is running! && sleep 3600"
     ports:
-    - containerPort: 8080
+      - containerPort: 8080
