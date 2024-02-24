@@ -6,7 +6,7 @@
 - Продемонстрировать доступ с помощью curl по доменному имени сервиса.
 - Предоставить манифесты Deployment и Service в решении, а также скриншоты или вывод команды п.4.
 ### Ответ:
-- создаем Deployment с двумя контейнерами (nginx и multitool) и требуемым количеством реплик (3 шт.) [apps.yaml]()
+- создаем Deployment с двумя контейнерами (nginx и multitool) и требуемым количеством реплик (3 шт.) [apps.yaml](https://github.com/EVolgina/kuber4/blob/main/apps.yaml)
 - создаем манифеста Service, файл srv.yaml [service.yaml]()
 ```
 vagrant@vagrant:~/kube/zad3$ kubectl apply -f apps.yaml
