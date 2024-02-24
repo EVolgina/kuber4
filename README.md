@@ -31,5 +31,74 @@ vagrant@vagrant:~/kube/zad3$ kubectl get deployment
 NAME            READY   UP-TO-DATE   AVAILABLE   AGE
 multitool       1/1     1            1           6d2h
 my-deployment   3/3     3            3           105s
-
+vagrant@vagrant:~/kube/zad3$ kubectl describe pod multitool-pod
+Name:             multitool-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             vagrant/10.0.2.15
+Start Time:       Sat, 24 Feb 2024 11:48:21 +0000
+Labels:           <none>
+Annotations:      cni.projectcalico.org/containerID: e7410bcf50d287c615582e8dcb0a405b275c6fd16fc8266cf3bec347c8c1c049
+                  cni.projectcalico.org/podIP: 10.1.52.147/32
+                  cni.projectcalico.org/podIPs: 10.1.52.147/32
+Status:           Running
+IP:               10.1.52.147
+IPs:
+  IP:  10.1.52.147
+Containers:
+  multitool-container:
+    Container ID:  containerd://e0b6e60d05111d0b6a43c1a7a940b7a56d9e9faaf699e4b096777d4142fd6f7b
+    Image:         wbitt/network-multitool:latest
+    Image ID:      docker.io/wbitt/network-multitool@sha256:d1137e87af76ee15cd0b3d4c7e2fcd111ffbd510ccd0af076fc98dddfc50a735
+    Port:          8080/TCP
+    Host Port:     0/TCP
+    Command:
+      sh
+      -c
+      echo The multitool is running! && sleep 3600
+    State:          Running
+      Started:      Sat, 24 Feb 2024 11:48:33 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-hdnlw (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-hdnlw:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
+vagrant@vagrant:~/kube/zad3$ kubectl describe svc my-service
+Name:              my-service
+Namespace:         default
+Labels:            <none>
+Annotations:       <none>
+Selector:          app=my-app
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                10.152.183.48
+IPs:               10.152.183.48
+Port:              nginx  9001/TCP
+TargetPort:        80/TCP
+Endpoints:         10.1.52.129:80,10.1.52.160:80,10.1.52.191:80
+Port:              multitool  9002/TCP
+TargetPort:        8080/TCP
+Endpoints:         10.1.52.129:8080,10.1.52.160:8080,10.1.52.191:8080
+Session Affinity:  None
+Events:            <none>
 ```
