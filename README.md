@@ -151,4 +151,61 @@ PING my-service.default.svc.cluster.local (10.152.183.48) 56(84) bytes of data.
 - Продемонстрировать доступ с помощью браузера или curl с локального компьютера.
 - Предоставить манифест и Service в решении, а также скриншоты или вывод команды п.2.
 ### Ответ:
-- Создала новый сервис [service1]()
+- Создала новый сервис [service1](https://github.com/EVolgina/kuber4/blob/main/apps1.yaml)
+```
+ vagrant@vagrant:~/kube/zad3$ kubectl apply -f service1.yaml
+service/my-service1 created
+vagrant@vagrant:~/kube/zad3$ kubectl get service
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
+kubernetes    ClusterIP   10.152.183.1     <none>        443/TCP             20d
+my-service    ClusterIP   10.152.183.48    <none>        9001/TCP,9002/TCP   3h24m
+my-service1   NodePort    10.152.183.118   <none>        80:30080/TCP        59s
+vagrant@vagrant:~/kube/zad3$ kubectl describe service my-service1
+Name:                     my-service1
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=my-app
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.152.183.118
+IPs:                      10.152.183.118
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  30080/TCP
+Endpoints:                10.1.52.164:80,10.1.52.173:80,10.1.52.176:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+```
+- Смотрим IP и проверяем подключение
+```
+vagrant@vagrant:~/kube/zad3$ kubectl get nodes -o wide
+NAME      STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+vagrant   Ready    <none>   20d   v1.28.7   10.0.2.15     <none>        Ubuntu 20.04.5 LTS   5.4.0-135-generic   containerd://1.6.28
+vagrant@vagrant:~/kube/zad3$ curl http://10.0.2.15:30080
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
