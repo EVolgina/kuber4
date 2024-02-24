@@ -101,4 +101,47 @@ TargetPort:        8080/TCP
 Endpoints:         10.1.52.129:8080,10.1.52.160:8080,10.1.52.191:8080
 Session Affinity:  None
 Events:            <none>
+vagrant@vagrant:~/kube/zad3$ kubectl exec -it multitool-pod -- /bin/bash
+multitool-pod:/# curl my-service:9001
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+multitool-pod:/# curl my-service:9002
+curl: (7) Failed to connect to my-service port 9002 after 15 ms: Couldn't connect to server
+multitool-pod:/# ping my-service
+PING my-service.default.svc.cluster.local (10.152.183.48) 56(84) bytes of data.
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=1 ttl=62 time=30.9 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=2 ttl=62 time=5.49 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=3 ttl=62 time=2.47 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=4 ttl=62 time=2.87 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=5 ttl=62 time=2.45 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=6 ttl=62 time=1.57 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=7 ttl=62 time=2.86 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=8 ttl=62 time=13.3 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=9 ttl=62 time=2.80 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=10 ttl=62 time=7.16 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=11 ttl=62 time=2.51 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=12 ttl=62 time=5.45 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=13 ttl=62 time=3.18 ms
+64 bytes from my-service.default.svc.cluster.local (10.152.183.48): icmp_seq=14 ttl=62 time=2.30 ms
 ```
