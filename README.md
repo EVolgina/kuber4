@@ -6,19 +6,30 @@
 - Продемонстрировать доступ с помощью curl по доменному имени сервиса.
 - Предоставить манифесты Deployment и Service в решении, а также скриншоты или вывод команды п.4.
 ### Ответ:
-- создаем Deployment с двумя контейнерами (nginx и multitool) и требуемым количеством реплик (3 шт.) [dep.yaml]()
-- создаем манифеста Service, файл srv.yaml [srv.yaml]()
+- создаем Deployment с двумя контейнерами (nginx и multitool) и требуемым количеством реплик (3 шт.) [apps.yaml]()
+- создаем манифеста Service, файл srv.yaml [service.yaml]()
 ```
-devops@WORKBOOK:/mnt/kube/kub4$ sudo nano dep.yaml
-devops@WORKBOOK:/mnt/kube/kub4$ sudo nano svr.yaml
-devops@WORKBOOK:/mnt/kube/kub4$ kubectl apply -f dep.yaml
-deployment.apps/myapp-deployment created
-devops@WORKBOOK:/mnt/kube/kub4$ kubectl apply -f svr.yaml
-service/myapp-service created
-devops@WORKBOOK:/mnt/kube/kub4$ kubectl get svc myapp-service
-NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-myapp-service   ClusterIP   10.152.183.26   <none>        9001/TCP,9002/TCP   30m
-
-
+vagrant@vagrant:~/kube/zad3$ kubectl apply -f apps.yaml
+deployment.apps/my-deployment created
+vagrant@vagrant:~/kube/zad3$ kubectl apply -f service.yaml
+service/my-service created
+vagrant@vagrant:~/kube/zad3$ kubectl apply -f mult.yaml
+pod/multitool-pod created
+vagrant@vagrant:~/kube/zad3$ kubectl get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+multitool-7f8c7df657-h2m9s     1/1     Running   0          69m
+my-deployment-c57565bf-5mtt7   2/2     Running   0          62s
+my-deployment-c57565bf-ghfs9   2/2     Running   0          62s
+my-deployment-c57565bf-cvstv   2/2     Running   0          63s
+multitool-pod                  1/1     Running   0          11s
+vagrant@vagrant:~/kube/zad3$ kubectl get service
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+kubernetes   ClusterIP   10.152.183.1    <none>        443/TCP             20d
+service      ClusterIP   10.152.183.43   <none>        8080/TCP            29m
+my-service   ClusterIP   10.152.183.48   <none>        9001/TCP,9002/TCP   73s
+vagrant@vagrant:~/kube/zad3$ kubectl get deployment
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+multitool       1/1     1            1           6d2h
+my-deployment   3/3     3            3           105s
 
 ```
